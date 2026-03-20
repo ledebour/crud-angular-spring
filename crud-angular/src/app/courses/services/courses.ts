@@ -8,7 +8,7 @@ import { Course } from '../model/course';
 export class Courses {
 
   constructor(private httpClient: HttpClient) { }
-  list(): Course[]{
-    return [{_id:'1', name:'Angular', category:'Frontend'}];
+  list(): Course[] {
+    return [{ _id: '1', name: 'Angular', category: 'Frontend' }];
   }
 }

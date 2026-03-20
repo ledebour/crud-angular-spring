@@ -9,12 +9,12 @@ import { Courses } from '../services/courses';
   standalone: false,
 })
 export class CoursesComponent implements OnInit {
-  courses:Course[] = [];
+  courses: Course[] = [];
   displayedColumns: string[] = ['name', 'category'];
 
   constructor(private coursesService: Courses) {
   }
   ngOnInit(): void {
-        this.courses = this.coursesService.list();
+    this.courses = this.coursesService.list();
   }
 }
