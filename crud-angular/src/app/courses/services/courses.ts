@@ -9,7 +9,7 @@ import { delay, first, tap } from 'rxjs/operators';
 })
 export class Courses {
 
-  private readonly API = '/assets/courses.json';
+  private readonly API = '/assets/courses2.json';
   constructor(private httpClient: HttpClient) { }
   list(): Observable<Course[]> {
     return this.httpClient.get<Course[]>(this.API).pipe(
