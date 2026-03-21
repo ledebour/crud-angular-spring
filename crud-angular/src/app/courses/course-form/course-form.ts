@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from "../../shared/shared-module";
+import { Courses } from '../services/courses';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { on } from 'events';
 
 @Component({
   selector: 'app-course-form',
@@ -12,7 +15,10 @@ export class CourseForm implements OnInit {
 
 
   form:FormGroup;
-  constructor(private readonly formBuilder: FormBuilder) {
+  constructor(private readonly formBuilder: FormBuilder,
+    private service: Courses,
+    private _snackBar: MatSnackBar
+  ) {
     this.form = this.formBuilder.group({
       name: [''],
       category: ['']
@@ -24,9 +30,17 @@ export class CourseForm implements OnInit {
   }
 
   onSubmit(): void {
+    console.log(this.form.value);
+    this.service.save(this.form.value)
+    .subscribe(result=>console.log(result),error=>this.onError());
   }
 
   onCancel(): void {
+    console.log('onCancel');
+  }
+
+  private onError(){
+    this._snackBar.open("Erro ao slvar curso",'',{duration:5000});
   }
 
 }
