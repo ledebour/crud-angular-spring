@@ -13,7 +13,10 @@
     <!-- Category Column -->
     <ng-container matColumnDef="category">
       <mat-header-cell *matHeaderCellDef>Categoria</mat-header-cell>
-      <mat-cell *matCellDef="let course">{{course.category}}</mat-cell>
+      <mat-cell *matCellDef="let course" class="category-cell">
+        {{ course.category }}
+        <mat-icon aria-hidden="false" aria-label="Categoria do curso" fontIcon="{{course.category | category}}" class="category-icon"></mat-icon>
+      </mat-cell>
     </ng-container>
 
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
