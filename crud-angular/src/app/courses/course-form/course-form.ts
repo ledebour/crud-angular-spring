@@ -2,22 +2,22 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from "../../shared/shared-module";
 import { Courses } from '../services/courses';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { on } from 'events';
+import { MatSnackBar  } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-course-form',
-  imports: [SharedModule, ReactiveFormsModule],
+  imports: [SharedModule, ReactiveFormsModule ],
   templateUrl: './course-form.html',
   styleUrl: './course-form.scss',
+  standalone: true
 })
 export class CourseForm implements OnInit {
 
 
   form:FormGroup;
   constructor(private readonly formBuilder: FormBuilder,
-    private service: Courses,
-    private _snackBar: MatSnackBar
+    private readonly service: Courses,
+    private readonly _snackBar: MatSnackBar
   ) {
     this.form = this.formBuilder.group({
       name: [''],
@@ -25,8 +25,8 @@ export class CourseForm implements OnInit {
     });
 
   }
-
   ngOnInit(): void {
+
   }
 
   onSubmit(): void {
@@ -40,7 +40,7 @@ export class CourseForm implements OnInit {
   }
 
   private onError(){
-    this._snackBar.open("Erro ao slvar curso",'',{duration:5000});
+    this._snackBar.open("Erro ao salvar curso",'',{duration:5000});
   }
 
 }
