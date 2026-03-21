@@ -4,6 +4,12 @@
   </mat-toolbar>
   <div *ngIf="courses$ | async as courses; else loading">
   <mat-table [dataSource]="courses" class="mat-elevation-z8">
+
+        <!-- Name Column -->
+    <ng-container matColumnDef="_id">
+      <mat-header-cell *matHeaderCellDef>ID</mat-header-cell>
+      <mat-cell *matCellDef="let course">{{course._id}}</mat-cell>
+    </ng-container>
     <!-- Name Column -->
     <ng-container matColumnDef="name">
       <mat-header-cell *matHeaderCellDef>Curso</mat-header-cell>

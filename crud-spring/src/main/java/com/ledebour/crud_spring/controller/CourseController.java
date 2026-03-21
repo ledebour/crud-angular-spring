@@ -3,6 +3,7 @@ package com.ledebour.crud_spring.controller;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ledebour.crud_spring.model.Course;
@@ -21,7 +22,7 @@ public class CourseController {
     private final CourseRepository courseRepository;
     
     @GetMapping
-    public List<Course> list() {
+    public @ResponseBody List<Course> list() {
         return courseRepository.findAll();
     }   
 }
