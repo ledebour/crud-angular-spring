@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { SharedModule } from "../../shared/shared-module";
-import { Courses } from '../services/courses';
+import { SharedModule } from "../../../shared/shared-module";
+import { Courses } from '../../services/courses';
 import { MatSnackBar  } from '@angular/material/snack-bar';
 import { Location } from '@angular/common';
 

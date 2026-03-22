@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Course } from '../model/course';
-import { Courses } from '../services/courses';
+import { Course } from '../../model/course';
+import { Courses } from '../../services/courses';
 import { catchError, Observable, of } from 'rxjs';
-import { ErrorDialog } from '../../shared/components/error-dialog/error-dialog';
+import { ErrorDialog } from '../../../shared/components/error-dialog/error-dialog';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -33,7 +33,7 @@ export class CoursesComponent implements OnInit {
     );
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   onError(errorMsg: string) {
     this.dialog.open(ErrorDialog, {
@@ -41,11 +41,8 @@ export class CoursesComponent implements OnInit {
     });
   }
 
-      onAdd() {
-    console.log('onAdd');
-
+  onAdd() {
+    console.log('onAdd Courses Component');
     this.router.navigate(['new'], { relativeTo: this.route });
-    }
-
-
+  }
 }

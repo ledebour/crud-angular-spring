@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CoursesComponent } from './courses/courses';
-import { CoursesList } from './courses-list/courses-list';
+import { CoursesComponent } from './containers/courses/courses';
+import { CoursesList } from './components/courses-list/courses-list';
 import { CoursesRoutingModule } from './courses-routing-module';
 import { AppMaterialModule } from '../shared/app-material/app-material-module';
 import { SharedModule } from '../shared/shared-module';
