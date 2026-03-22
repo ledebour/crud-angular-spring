@@ -4,6 +4,7 @@ import { SharedModule } from "../../../shared/shared-module";
 import { Courses } from '../../services/courses';
 import { MatSnackBar  } from '@angular/material/snack-bar';
 import { Location } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-course-form',
@@ -19,15 +20,23 @@ export class CourseForm implements OnInit {
   constructor(private readonly formBuilder: FormBuilder,
     private readonly service: Courses,
     private readonly _snackBar: MatSnackBar,
-    private readonly location: Location
+    private readonly location: Location,
+    private readonly route: ActivatedRoute
   ) {
     this.form = this.formBuilder.group({
+      _id: [''],
       name: [''],
       category: ['']
     });
 
   }
   ngOnInit(): void {
+    const course = this.route.snapshot.data['course'];
+    this.form.setValue({
+      _id: course._id,
+      name: course.name,
+      category: course.category
+    });
 
   }
 
