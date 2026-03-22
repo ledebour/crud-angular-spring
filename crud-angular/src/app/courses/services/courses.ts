@@ -19,6 +19,10 @@ export class Courses {
     );
   }
 
+  loadById(id: string): Observable<Course> {
+    return this.httpClient.get<Course>(`${this.API}/${id}`).pipe(first());
+  }
+
   save(record:Course){
     console.log(record);
     return this.httpClient.post<Course>(this.API, record).pipe(first());
