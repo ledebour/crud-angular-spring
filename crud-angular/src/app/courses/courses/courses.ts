@@ -41,15 +41,11 @@ export class CoursesComponent implements OnInit {
     });
   }
 
-  onAdd() {
+      onAdd() {
     console.log('onAdd');
 
-    // ✔ escolha UMA das opções abaixo conforme sua rota
-
-    // 👉 OPÇÃO 1: rota filha
     this.router.navigate(['new'], { relativeTo: this.route });
+    }
 
-    // 👉 OPÇÃO 2: rota absoluta (mais segura)
-    // this.router.navigate(['/courses/new']);
-  }
+
 }
