@@ -6,7 +6,7 @@ import { ErrorDialog } from '../../../shared/components/error-dialog/error-dialo
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { error } from 'console';
+import { ConfirmationDialog } from '../../../shared/components/confirmation-dialog/confirmation-dialog';
 
 @Component({
   selector: 'app-courses',
@@ -50,18 +50,27 @@ export class CoursesComponent implements OnInit {
 
   onRemove(course: Course) {
     console.log('onRemove Courses Component');
-    this.coursesService.remove(course._id!).subscribe(
-      () => {
-        this.refresh();
-        this.snackBar.open('Curso removido com sucesso!', 'X', {
-          duration: 3000,
-          verticalPosition: 'top',
-          horizontalPosition: 'center'
-        });
-      },error => {
-        this.onError('Erro ao remover curso');
+    const dialogRef = this.dialog.open(ConfirmationDialog, {
+      data: "Tem certeza que deseja remover esse curso?",
+    });
+
+    dialogRef.afterClosed().subscribe((result: boolean) => {
+      if (result) {
+            this.coursesService.remove(course._id!).subscribe(
+            () => {
+              this.refresh();
+              this.snackBar.open('Curso removido com sucesso!', 'X', {
+                duration: 3000,
+                verticalPosition: 'top',
+                horizontalPosition: 'center'
+              });
+            },error => {
+              this.onError('Erro ao remover curso');
+            }
+          );
       }
-    );
+    });
+
   }
 
   refresh() {
