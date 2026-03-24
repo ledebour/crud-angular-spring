@@ -24,3 +24,9 @@ Frontend (Angular)
 Backend (Spring Boot)
 ↓
 Database
+
+👨‍💻 Autor
+
+Luís Ledebour
+
+LinkedIn: https://linkedin.com/in/ledebour/
