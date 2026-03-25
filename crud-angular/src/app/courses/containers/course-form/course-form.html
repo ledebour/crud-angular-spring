@@ -17,8 +17,8 @@
             <mat-label>Categoria</mat-label>
           <select matNativeControl  formControlName="category">
               <option value="null"></option>
-              <option value="front-end">Front-End</option>
-              <option value="back-end">Back-End</option>
+              <option value="Front-end">Front-End</option>
+              <option value="Back-end">Back-End</option>
             </select>
                       @if (form.get('category')?.invalid) {
             <mat-error>{{ getErrorMessage('category') }}</mat-error>
