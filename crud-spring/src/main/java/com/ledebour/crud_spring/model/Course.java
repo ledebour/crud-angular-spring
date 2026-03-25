@@ -1,6 +1,5 @@
 package com.ledebour.crud_spring.model;
 
-import org.hibernate.annotations.Filter;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.validator.constraints.Length;
 
