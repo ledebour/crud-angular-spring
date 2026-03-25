@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
+import com.ledebour.crud_spring.exception.RecordNotFoundException;
 import com.ledebour.crud_spring.model.Course;
 import com.ledebour.crud_spring.repository.CourseRepository;
 
@@ -25,27 +26,29 @@ public class CourseService {
 
     public List<Course> list() {
         return courseRepository.findAllAtivos();
-    }  
- 
-    public Optional<Course> findById(@NotNull @Positive Long id) {
-        return courseRepository.findById(id);
     }
-    
-    public Course create( @Valid Course course) {
+
+    public Course findById(@NotNull @Positive Long id) {
+        return courseRepository.findById(id).orElseThrow(() -> new RecordNotFoundException(id));
+    }
+
+    public Course create(@Valid Course course) {
         return courseRepository.save(course);
     }
 
-    public Optional<Course> update(@NotNull @Positive Long id, @Valid Course course) {
+    public Course update(@NotNull @Positive Long id, @Valid Course course) {
 
-        return courseRepository.findById(id);
+        return courseRepository.findById(id).map(recordFound -> {
+            recordFound.setName(course.getName());
+            recordFound.setCategory(course.getCategory());
+            return courseRepository.save(recordFound);
+        }).orElseThrow(() -> new RecordNotFoundException(id));
     }
 
-    public boolean delete(@NotNull @Positive Long id) {
-        return courseRepository.findById(id).map(data-> {
-            courseRepository.deleteById(id);
-            return true;
-        })
-                .orElse(false);
+    public void delete(@NotNull @Positive Long id) {
+
+        courseRepository.delete(courseRepository.findById(id)
+                .orElseThrow(() -> new RecordNotFoundException(id)));
     }
-                
+
 }
