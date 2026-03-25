@@ -36,7 +36,7 @@ public class CourseController {
     
     @GetMapping
     public @ResponseBody List<Course> list() {
-        return courseRepository.findAll();
+        return courseRepository.findAllAtivos();
     }   
 
     @GetMapping("/{id}")

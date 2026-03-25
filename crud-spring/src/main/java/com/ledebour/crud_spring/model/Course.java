@@ -1,5 +1,7 @@
 package com.ledebour.crud_spring.model;
 
+import org.hibernate.annotations.Filter;
+import org.hibernate.annotations.SQLDelete;
 import org.hibernate.validator.constraints.Length;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -12,9 +14,14 @@ import jakarta.persistence.Id;
 import jakarta.validation.constraints.*;
 import lombok.Data;
 
+
 @Data
 @Entity
 //@Table(name = "cursos")
+@SQLDelete(sql = "update course set status ='Inativo' where id=?")
+
+//TODO: não funciona para repository.findAll() e findById(), somente para query nativas, pesquisar mais sobre isso
+//@Filter(name = "activeCourse", condition = "status='Ativo'")
 public class Course {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -32,4 +39,11 @@ public class Course {
     @Pattern(regexp = "Back-end|Front-end")
     @Column(length = 10, nullable = false)
     private String category;
+
+    
+    @NotNull
+    @Length(max=10)
+    @Pattern(regexp = "Ativo|Inativo")
+    @Column(length = 10, nullable = false)
+    private String status ="Ativo";
 }
