@@ -1,4 +1,4 @@
-package com.ledebour.dto;
+package com.ledebour.crud_spring.dto;
 
 import org.hibernate.validator.constraints.Length;
 
