@@ -4,23 +4,28 @@ import org.hibernate.annotations.SQLDelete;
 import org.hibernate.validator.constraints.Length;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.ledebour.crud_spring.enums.Category;
+import com.ledebour.crud_spring.enums.converters.CategoryConverter;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.validation.constraints.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 import lombok.Data;
-
 
 @Data
 @Entity
-//@Table(name = "cursos")
+// @Table(name = "cursos")
 @SQLDelete(sql = "update course set status ='Inativo' where id=?")
 
-//TODO: não funciona para repository.findAll() e findById(), somente para query nativas, pesquisar mais sobre isso
-//@Filter(name = "activeCourse", condition = "status='Ativo'")
+// TODO: não funciona para repository.findAll() e findById(), somente para query
+// nativas, pesquisar mais sobre isso
+// @Filter(name = "activeCourse", condition = "status='Ativo'")
 public class Course {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -29,20 +34,20 @@ public class Course {
 
     @NotBlank
     @NotNull
-    @Length(min=5, max=100)
+    @Length(min = 5, max = 100)
     @Column(length = 100, nullable = false)
     private String name;
 
     @NotNull
-    @Length(max=10)
-    @Pattern(regexp = "Back-end|Front-end")
+    // @Length(max=10)
+    // @Pattern(regexp = "Back-end|Front-end")
     @Column(length = 10, nullable = false)
-    private String category;
+    @Convert(converter = CategoryConverter.class)
+    private Category category;
 
-    
     @NotNull
-    @Length(max=10)
+    @Length(max = 10)
     @Pattern(regexp = "Ativo|Inativo")
     @Column(length = 10, nullable = false)
-    private String status ="Ativo";
+    private String status = "Ativo";
 }

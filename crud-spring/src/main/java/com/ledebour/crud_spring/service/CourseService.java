@@ -7,6 +7,7 @@ import org.springframework.validation.annotation.Validated;
 
 import com.ledebour.crud_spring.dto.CourseDTO;
 import com.ledebour.crud_spring.dto.mapper.CourseMapper;
+import com.ledebour.crud_spring.enums.Category;
 import com.ledebour.crud_spring.exception.RecordNotFoundException;
 import com.ledebour.crud_spring.repository.CourseRepository;
 
@@ -45,7 +46,7 @@ public class CourseService {
 
         return courseRepository.findById(id).map(recordFound -> {
             recordFound.setName(course.name());
-            recordFound.setCategory(course.category());
+            recordFound.setCategory(Category.FRONT_END);
             return courseMapper.toDTO(courseRepository.save(recordFound));
         }).orElseThrow(() -> new RecordNotFoundException(id));
     }
