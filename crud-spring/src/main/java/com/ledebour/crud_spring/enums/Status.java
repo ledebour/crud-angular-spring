@@ -1,0 +1,21 @@
+package com.ledebour.crud_spring.enums;
+
+public enum Status {
+    ACTIVE("Ativo"), INACTIVE("Inativo");
+
+    private String value;
+
+    private Status(String value) {
+        this.value = value;
+    }
+
+    public String getValue() {
+        return value;
+    }
+
+    //toString() para retornar o valor da string ao invés do nome do enum
+    @Override
+    public String toString() {
+        return value;
+    }
+}
