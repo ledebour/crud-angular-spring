@@ -19,12 +19,7 @@ A aplicação permite realizar operações básicas de CRUD, servindo como base 
 # 🧱 🏗️ Arquitetura
 
 
-Frontend (Angular)
-↓ 
-HTTP (REST API)
-Backend (Spring Boot)
-↓
-Database
+Frontend (Angular) -> HTTP (REST API) Backend (Spring Boot) -> Database
 
 👨‍💻 Autor
 
