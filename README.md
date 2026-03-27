@@ -20,7 +20,8 @@ A aplicação permite realizar operações básicas de CRUD, servindo como base 
 
 
 Frontend (Angular)
-↓ HTTP (REST API)
+↓ 
+HTTP (REST API)
 Backend (Spring Boot)
 ↓
 Database
