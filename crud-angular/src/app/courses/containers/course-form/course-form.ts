@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, UntypedFormArray, Validators } from '@angular/forms';
 import { SharedModule } from "../../../shared/shared-module";
 import { Courses } from '../../services/courses';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Location } from '@angular/common';
+import { Location,CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { Lesson } from '../../model/lesson';
 import { Course } from '../../model/course';
-
 @Component({
   selector: 'app-course-form',
   imports: [SharedModule, ReactiveFormsModule],
@@ -23,7 +22,8 @@ export class CourseForm implements OnInit {
     private readonly service: Courses,
     private readonly _snackBar: MatSnackBar,
     private readonly location: Location,
-    private readonly route: ActivatedRoute
+    private readonly route: ActivatedRoute,
+    private readonly common: CommonModule
   ) {
 
   }
@@ -56,6 +56,10 @@ export class CourseForm implements OnInit {
       name: [lesson.name],
       youtubeUrl: [lesson.youtubeUrl]
     });
+  }
+
+  getLessonsFormArray(){
+    return (<UntypedFormArray>this.form.get('lessons')).controls;
   }
 
   onSubmit(): void {
