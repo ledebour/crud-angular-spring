@@ -24,9 +24,9 @@
             <mat-error>{{ getErrorMessage('category') }}</mat-error>
           }
         </mat-form-field>
-        <mat-toolbar color="accent">
+        <mat-toolbar >
           <span>Aulas</span>
-            <button mat-mini-button color="accent">
+            <button mat-icon-button color="accent" (click)="addNewLesson()">
               <mat-icon aria-label="Adicionar uma nova aula">add</mat-icon>
             </button>
         </mat-toolbar>
@@ -47,7 +47,11 @@
                   <input matInput placeholder="URL" formControlName="youtubeUrl" #url>
                 </mat-form-field>
             </td>
-
+            <td style="width: 30%;">
+                <button mat-icon-button color="warn" (click)="removeLesson(i)">
+                  <mat-icon aria-label="Remover a aula">delete</mat-icon>
+                </button>
+            </td>
           </tr>
         }
         </table>

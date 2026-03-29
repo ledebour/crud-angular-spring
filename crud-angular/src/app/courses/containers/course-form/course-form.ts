@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, UntypedFormArray, Validato
 import { SharedModule } from "../../../shared/shared-module";
 import { Courses } from '../../services/courses';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Location,CommonModule } from '@angular/common';
+import { Location, CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { Lesson } from '../../model/lesson';
 import { Course } from '../../model/course';
@@ -15,7 +15,6 @@ import { Course } from '../../model/course';
   standalone: true
 })
 export class CourseForm implements OnInit {
-
 
   form!: FormGroup;
   constructor(private readonly formBuilder: FormBuilder,
@@ -58,8 +57,18 @@ export class CourseForm implements OnInit {
     });
   }
 
-  getLessonsFormArray(){
+  getLessonsFormArray() {
     return (<UntypedFormArray>this.form.get('lessons')).controls;
+  }
+
+  addNewLesson() {
+    const lessons = <UntypedFormArray>this.form.get('lessons');
+    lessons.push(this.createLesson());
+  }
+
+  removeLesson(index: number) {
+    const lessons = <UntypedFormArray>this.form.get('lessons');
+    lessons.removeAt(index);
   }
 
   onSubmit(): void {
