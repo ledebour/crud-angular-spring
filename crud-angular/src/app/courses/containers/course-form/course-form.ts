@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, UntypedFormArray, Validato
 import { SharedModule } from "../../../shared/shared-module";
 import { Courses } from '../../services/courses';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Location, CommonModule } from '@angular/common';
+import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { Lesson } from '../../model/lesson';
 import { Course } from '../../model/course';
@@ -22,7 +22,6 @@ export class CourseForm implements OnInit {
     private readonly _snackBar: MatSnackBar,
     private readonly location: Location,
     private readonly route: ActivatedRoute,
-    private readonly common: CommonModule
   ) {
 
   }
@@ -33,7 +32,7 @@ export class CourseForm implements OnInit {
       _id: [course._id],
       name: [course.name, [Validators.required, Validators.minLength(5), Validators.maxLength(100)]],
       category: [course.category, [Validators.required]],
-      lessons: this.formBuilder.array(this.retrieveLessons(course))
+      lessons: this.formBuilder.array(this.retrieveLessons(course), Validators.required)
     });
     console.log(this.form);
     console.log(this.form.value);
@@ -52,8 +51,8 @@ export class CourseForm implements OnInit {
   private createLesson(lesson: Lesson = { id: '', name: '', youtubeUrl: '' }): FormGroup {
     return this.formBuilder.group({
       id: [lesson.id],
-      name: [lesson.name],
-      youtubeUrl: [lesson.youtubeUrl]
+      name: [lesson.name, [Validators.required, Validators.minLength(5), Validators.maxLength(100)]],
+      youtubeUrl: [lesson.youtubeUrl, [Validators.required, Validators.minLength(10), Validators.maxLength(11)]]
     });
   }
 
@@ -72,9 +71,12 @@ export class CourseForm implements OnInit {
   }
 
   onSubmit(): void {
-    console.log(this.form.value);
-    this.service.save(this.form.value)
+    if (this.form.valid) {
+         this.service.save(this.form.value)
       .subscribe(result => this.onSuccess(), error => this.onError());
+    }else{
+      alert('form inválido');
+    }
   }
 
   onCancel(): void {
@@ -106,6 +108,12 @@ export class CourseForm implements OnInit {
   private onSuccess() {
     this._snackBar.open("Curso salvo com sucesso!", '', { duration: 5000 });
     this.onCancel();
+  }
+
+  isFormArrayRequired(): boolean {
+    console.log('isFormArrayRequired');
+    const lessons = this.form.get('lessons') as UntypedFormArray;
+    return !lessons.valid && lessons.hasError('required');// && lessons.touched;
   }
 
 }

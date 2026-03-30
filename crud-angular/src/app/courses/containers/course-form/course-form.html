@@ -20,8 +20,8 @@
               <option value="Front-end">Front-End</option>
               <option value="Back-end">Back-End</option>
             </select>
-                      @if (form.get('category')?.invalid) {
-            <mat-error>{{ getErrorMessage('category') }}</mat-error>
+            @if (form.get('category')?.invalid) {
+              <mat-error>{{ getErrorMessage('category') }}</mat-error>
           }
         </mat-form-field>
         <mat-toolbar >
@@ -30,6 +30,11 @@
               <mat-icon aria-label="Adicionar uma nova aula">add</mat-icon>
             </button>
         </mat-toolbar>
+
+         @if (isFormArrayRequired()) {
+            <mat-error class="form-array-error">Adicione pelo menos uma aula</mat-error>
+         }
+
         <table style="width: 100%;" formArrayName="lessons">
           @for (lesson of getLessonsFormArray(); let i = $index; track i) {
 
@@ -38,6 +43,9 @@
                 <mat-form-field class="full-width">
                   <mat-label>Nome da aula</mat-label>
                   <input matInput placeholder="Nome" formControlName="name" #name>
+                  @if (getLessonsFormArray()[i].get('name')?.invalid) {
+                    <mat-error class="form-array-error">Campo inválido</mat-error>
+                  }
                 </mat-form-field>
             </td>
             <td style="width: 30%;">
@@ -45,6 +53,9 @@
                   <mat-label>URL</mat-label>
                   <span matTextPrefix>https://youtu.be/</span>
                   <input matInput placeholder="URL" formControlName="youtubeUrl" #url>
+                  @if (getLessonsFormArray()[i].get('youtubeUrl')?.invalid) {
+                    <mat-error class="form-array-error">Campo inválido</mat-error>
+                  }
                 </mat-form-field>
             </td>
             <td style="width: 30%;">
