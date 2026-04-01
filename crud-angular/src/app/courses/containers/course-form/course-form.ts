@@ -7,6 +7,7 @@ import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { Lesson } from '../../model/lesson';
 import { Course } from '../../model/course';
+import { FormUtils } from '../../../shared/form/form-utils';
 @Component({
   selector: 'app-course-form',
   imports: [SharedModule, ReactiveFormsModule],
@@ -22,6 +23,7 @@ export class CourseForm implements OnInit {
     private readonly _snackBar: MatSnackBar,
     private readonly location: Location,
     private readonly route: ActivatedRoute,
+    public readonly formUtils:FormUtils
   ) {
 
   }
@@ -34,8 +36,6 @@ export class CourseForm implements OnInit {
       category: [course.category, [Validators.required]],
       lessons: this.formBuilder.array(this.retrieveLessons(course), Validators.required)
     });
-    console.log(this.form);
-    console.log(this.form.value);
   }
 
   private retrieveLessons(course: Course): FormGroup[] {
@@ -75,12 +75,11 @@ export class CourseForm implements OnInit {
       this.service.save(this.form.value)
         .subscribe(result => this.onSuccess(), error => this.onError());
     } else {
-      alert('form inválido');
+      this.formUtils.validateAllFormFields(this.form);
     }
   }
 
   onCancel(): void {
-    console.log('onCancel');
     this.location.back();
   }
 

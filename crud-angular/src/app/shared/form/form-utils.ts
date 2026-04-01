@@ -1,4 +1,4 @@
-import { FormGroup, UntypedFormArray, UntypedFormControl, UntypedFormGroup } from '@angular/forms';
+import { UntypedFormArray, UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -13,10 +13,10 @@ export class FormUtils {
   validateAllFormFields(formGroup: UntypedFormGroup | UntypedFormArray) {
     Object.keys(formGroup.controls).forEach(field => {
       const control = formGroup.get(field);
-      if(control instanceof UntypedFormControl){
-        control.markAsTouched({onlySelf:true});
-      }else if(control  instanceof UntypedFormGroup || control  instanceof UntypedFormArray){
-        control.markAsTouched({onlySelf:true});
+      if (control instanceof UntypedFormControl) {
+        control.markAsTouched({ onlySelf: true });
+      } else if (control instanceof UntypedFormGroup || control instanceof UntypedFormArray) {
+        control.markAsTouched({ onlySelf: true });
         this.validateAllFormFields(control);
       }
     });
@@ -51,7 +51,7 @@ export class FormUtils {
     return this.getErrorMessageFromField(field);
   }
 
-  isFormArrayRequired(formGroup: UntypedFormGroup, formArrayName:string): boolean {
+  isFormArrayRequired(formGroup: UntypedFormGroup, formArrayName: string): boolean {
     const lessons = formGroup.get(formArrayName) as UntypedFormArray;
     return !lessons.valid && lessons.hasError('required');// && lessons.touched;
   }

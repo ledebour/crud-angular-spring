@@ -9,19 +9,18 @@
           <mat-hint align="end">{{name?.value?.length || 0}}/100</mat-hint>
 
           @if (form.get('name')?.invalid) {
-            <mat-error>{{ getErrorMessage('name') }}</mat-error>
+            <mat-error>{{ formUtils.getErrorMessage(form, 'name') }}</mat-error>
           }
         </mat-form-field>
 
         <mat-form-field class="full-width">
             <mat-label>Categoria</mat-label>
           <select matNativeControl  formControlName="category">
-              <option value="null"></option>
               <option value="Front-end">Front-End</option>
               <option value="Back-end">Back-End</option>
             </select>
             @if (form.get('category')?.invalid) {
-              <mat-error>{{ getErrorMessage('category') }}</mat-error>
+              <mat-error>{{ formUtils.getErrorMessage(form, 'category') }}</mat-error>
           }
         </mat-form-field>
         <mat-toolbar >
@@ -31,7 +30,7 @@
             </button>
         </mat-toolbar>
 
-         @if (isFormArrayRequired()) {
+         @if (formUtils.isFormArrayRequired(form,'lessons')) {
             <mat-error class="form-array-error">Adicione pelo menos uma aula</mat-error>
          }
 
@@ -44,7 +43,7 @@
                   <mat-label>Nome da aula</mat-label>
                   <input matInput placeholder="Nome" formControlName="name" #name>
                   @if (getLessonsFormArray()[i].get('name')?.invalid) {
-                    <mat-error class="form-array-error">Campo inválido</mat-error>
+                    <mat-error class="form-array-error">{{formUtils.getFormArrayFieldErrorMessage(form,'lessons','name',i)}}</mat-error>
                   }
                 </mat-form-field>
             </td>
@@ -54,7 +53,7 @@
                   <span matTextPrefix>https://youtu.be/</span>
                   <input matInput placeholder="URL" formControlName="youtubeUrl" #url>
                   @if (getLessonsFormArray()[i].get('youtubeUrl')?.invalid) {
-                    <mat-error class="form-array-error">Campo inválido</mat-error>
+                    <mat-error class="form-array-error">{{formUtils.getFormArrayFieldErrorMessage(form,'lessons','name',i)}}</mat-error>
                   }
                 </mat-form-field>
             </td>
