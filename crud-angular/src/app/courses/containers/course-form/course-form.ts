@@ -72,9 +72,9 @@ export class CourseForm implements OnInit {
 
   onSubmit(): void {
     if (this.form.valid) {
-         this.service.save(this.form.value)
-      .subscribe(result => this.onSuccess(), error => this.onError());
-    }else{
+      this.service.save(this.form.value)
+        .subscribe(result => this.onSuccess(), error => this.onError());
+    } else {
       alert('form inválido');
     }
   }
@@ -88,32 +88,9 @@ export class CourseForm implements OnInit {
     this._snackBar.open("Erro ao salvar curso", '', { duration: 5000 });
   }
 
-  public getErrorMessage(fieldName: string) {
-    const field = this.form.get(fieldName);
-    if (field?.hasError('required')) {
-      return 'Campo obrigatório';
-    }
-    if (field?.hasError('minlength')) {
-      const requiredLength: number = field.errors ? field.errors['minlength']['requiredLength'] : 5;
-      return `Tamanho mínimo precisa ser ${requiredLength} caracteres`;
-    }
-
-    if (field?.hasError('maxlength')) {
-      const requiredLength: number = field.errors ? field.errors['maxlength']['requiredLength'] : 200;
-      return `Tamanho máximo precisa ser ${requiredLength} caracteres`;
-    }
-    return 'Campo inválido';
-  }
-
   private onSuccess() {
     this._snackBar.open("Curso salvo com sucesso!", '', { duration: 5000 });
     this.onCancel();
-  }
-
-  isFormArrayRequired(): boolean {
-    console.log('isFormArrayRequired');
-    const lessons = this.form.get('lessons') as UntypedFormArray;
-    return !lessons.valid && lessons.hasError('required');// && lessons.touched;
   }
 
 }
