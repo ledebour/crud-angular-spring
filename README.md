@@ -8,6 +8,13 @@ Aplicação fullstack para operações CRUD (Create, Read, Update, Delete) utili
 
 ---
 
+# Como rodar
+Frontend (Aplicação Angular)
+-> crud-angular-spring\crud-angular> npm start
+Backend (Spring Boot)
+-> crud-angular-spring\crud-spring> mvn spring-boot:run
+
+
 # 📌 📖 Sobre o projeto
 
 Este projeto demonstra a construção de uma aplicação fullstack moderna utilizando Angular no frontend e Spring Boot no backend.
